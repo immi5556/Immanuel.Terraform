@@ -1,0 +1,50 @@
+﻿{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Immanuel_Terraform_Composer_1",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GenerateCredentialReport",
+        "iam:GetAccountPasswordPolicy",
+        "iam:GetServiceLastAccessedDetailsWithEntities",
+        "iam:ListServerCertificates",
+        "iam:GenerateServiceLastAccessedDetails",
+        "iam:ListPoliciesGrantingServiceAccess",
+        "dynamodb:*",
+        "iam:GetServiceLastAccessedDetails",
+        "iam:ListVirtualMFADevices",
+        "iam:SimulateCustomPolicy",
+        "iam:CreateAccountAlias",
+        "iam:GetAccountAuthorizationDetails",
+        "iam:DeleteAccountAlias",
+        "iam:GetCredentialReport",
+        "iam:ListPolicies",
+        "iam:DeleteAccountPasswordPolicy",
+        "iam:ListSAMLProviders",
+        "apigateway:*",
+        "iam:ListRoles",
+        "iam:GetContextKeysForCustomPolicy",
+        "iam:UpdateAccountPasswordPolicy",
+        "iam:ListOpenIDConnectProviders",
+        "lambda:*",
+        "iam:ListAccountAliases",
+        "iam:ListUsers",
+        "iam:ListGroups",
+        "iam:GetAccountSummary"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Immanuel_Terraform_Composer_2",
+      "Effect": "Allow",
+      "Action": "iam:*",
+      "Resource": [
+        "arn:aws:iam::*:policy/*",
+        "arn:aws:iam::*:user/*",
+        "arn:aws:iam::*:role/*",
+        "arn:aws:iam::*:group/*"
+      ]
+    }
+  ]
+}

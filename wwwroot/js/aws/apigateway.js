@@ -1,0 +1,6 @@
+﻿var apig = (function () {
+
+    return {
+
+    }
+})();

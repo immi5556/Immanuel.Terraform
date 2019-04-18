@@ -1,0 +1,145 @@
+﻿@{
+    Layout = null;
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Immanuel: Terraform</title>
+    <script src="~/js/jquery-3.4.0.min.js"></script>
+    <script src="~/js/d3.v3.min.js"></script>
+    <link href="~/css/select.css" rel="stylesheet" />
+    <style>
+        .center {
+            width: 90%;
+            min-height: 80%;
+            text-align: center;
+            border: 2px solid green;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body style="text-align:center;">
+    <div class="center">
+        <h2 style="margin: 0px;padding:0px;margin-top:30px;margin-bottom:30px;">Terraform Script Generator / <strike>Executor</strike> [TO DO] </h2>
+
+        <div class="text__center" id="sel-plat">
+            <select class="cs-select cs-skin-elastic">
+                <option value="select" disabled selected>Select Platform</option>
+                <option value="aws-service">AWS</option>
+                <option value="azure"><strike>Azure</strike> (Coming Soon) </option>
+            </select>
+        </div>
+
+        <br /><br />
+
+        <div class="text__center platforms hidden" id="aws-service">
+            <select class="cs-select cs-skin-elastic" id="sel-service">
+                <option value="select" disabled selected>Select Service</option>
+                <option value="aws-lamda">Lambda</option>
+                <option value="aws-apigateway">Api Gateway</option>
+            </select>
+        </div>
+        <br />
+        <hr />
+
+        <div id="aws-lamda" style="line-height: 20px;text-align:center;" class="services hidden">
+            <br />
+            <h3> Build Your Terraform Script (AWS Lambda - Basic)</h3>
+
+            <br />
+            <div>
+                @*<input type="radio" name="lambda-role" value="create" /> Create New Role <input type="radio" name="lambda-role" value="useexist" /> Use Exisiting Role
+                <br /> (This is like an service account from traditional approach.)
+                <br /><input type="text" id="aws-lamda-role" />*@
+            </div>
+            <div style="width:41%;display:inline-block;">
+                <group class="inline-radio">
+                    <div><input type="radio" name="lambda-role" value="create" checked><label>Create New Role</label></div>
+                    <div><input type="radio" name="lambda-role" value="useexist"><label>Use Existing Eole</label></div>
+                </group>
+            </div>
+            <div class="nice-wrap">
+                <input class="nice-textbox" type="text" id="aws-lamda-role" placeholder="Enter New Role Name - lamda_exec_role" />
+                <label class="nice-label" for="aws-lamda-role"></label>
+                (This is like an service account from traditional approach.)<br />
+                Make sure the right access is provided to the execution role <a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html">refer link</a>
+            </div>
+
+            <div class="text__center">
+                <select class="cs-select cs-skin-elastic" id="aws-lambda-runtime">
+                    <option value="select" selected>Select Runtime</option>
+                    <option value="nodejs8.10">Node.js 8.10</option>
+                    <option value="nodejs6.10">Node.js 6.10</option>
+                    <option value="python3.6">Python 3.6</option>
+                    <option value="python3.7">Python 3.7</option>
+                    <option value="python2.7">Python 2.7</option>
+                    <option value="go1.x">Go 1.x</option>
+                    <option value="java8">Java 8</option>
+                    <option value="ruby2.5">Ruby 2.5</option>
+                    <option value="dotnetcore2.1">.NET Core 2.1</option>
+                    <option value="dotnetcore2.0">.NET Core 2.0</option>
+                    <option value="dotnetcore1.0">.NET Core 1.0</option>
+                </select>
+            </div>
+            <div class="nice-wrap">
+                <input class="nice-textbox" type="text" id="aws-lamda-functionname" placeholder="Function Name (EntryPoint)" />
+                <label class="nice-label" for="aws-lamda-functionname"></label>
+            </div>
+            <div class="nice-wrap">
+                <input class="nice-textbox" type="text" id="aws-lamda-filename" placeholder="File Name (Upload.zip)" style="margin-top:0px;" />
+                <label class="nice-label" for="aws-lamda-filename"></label>
+            </div>
+
+            <div class="nice-wrap">
+                <input class="nice-textbox" type="text" id="aws-lamda-handler" placeholder="handler AssemlyName::Namespacename::MethodName" style="margin-top:0px;" />
+                <label class="nice-label" for="aws-lamda-handler"></label>
+            </div>
+
+            <div style="position:relative;display:block;">
+                <button id="lamda-generate" class="button" style="height:50px;">Generate Script</button>
+            </div>
+            <br />
+        </div>
+
+        <div id="aws-apigateway" style="line-height: 20px;text-align:center;" class="services hidden">
+            <br />
+            <h3> Build Your Terraform Script (AWS Api Gateway - Basic)</h3>
+
+            <br />
+            
+
+            <div style="position:relative;display:block;">
+                <button id="apigateway-generate" class="button" style="height:50px;">Generate Script</button>
+            </div>
+            <br />
+        </div>
+    </div>
+
+    <div class="popup genrate-script">
+        <h2>Generated Script</h2>
+        <pre style="text-align:start;" id="pop-content">
+
+        </pre>
+        <button name="close">Close</button>
+        <button name="">Dry Run</button>
+        <button id="btnBudget">Budget</button>
+        <button id="chkAccess">Check Access</button>
+        <button id="downlaod-script">Download</button>
+        <button id="copy-script">Copy</button>
+    </div>
+
+    <div class="popup budget" style="overflow:auto;background-color:white;">
+        <h4>This Graph Shows the Direct impact On Quality Of Development</h4>
+        <h6 style="margin:0px;padding:0px;">Even a point value increase in the execution time directly affects the cost. (Calculation Derived Form <a href="https://aws.amazon.com/lambda/pricing/">this link</a>) </h6>
+        <p style="text-align:center;background-color:white;" id="budget-content">
+
+        </p>
+        <button name="close">Close</button>
+    </div>
+
+
+    <script src="~/js/util.js"></script>
+    <script src="/js/controls.js"></script>
+    <script src="~/js/xhr.js"></script>
+    <script src="/js/aws/lambda.js"></script>
+</body>
+</html>

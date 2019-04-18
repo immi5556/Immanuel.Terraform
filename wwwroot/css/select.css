@@ -1,0 +1,562 @@
+﻿body {
+    /*background-color: #887244;*/
+    background-color: #3cad7e;
+    font-family: 'Arial', sans-serif;
+}
+/* Default custom select styles */
+.text__center {
+    text-align: center;
+}
+
+div.cs-select {
+    position: relative;
+    z-index: 100;
+    display: inline-block;
+    width: 100%;
+    max-width: 500px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-align: left;
+    vertical-align: middle;
+    background: #fff;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+}
+
+    div.cs-select:focus {
+        outline: none;
+        /* For better accessibility add a style for this in your skin */
+    }
+
+.cs-select select {
+    display: none;
+}
+
+.cs-select span {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 1em;
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/* Placeholder and selected option */
+
+.cs-select > span {
+    padding-right: 3em;
+}
+
+    .cs-select > span::after,
+    .cs-select .cs-selected span::after {
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        speak: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .cs-select > span::after {
+        right: 1em;
+        content: '\25BE';
+    }
+
+.cs-select .cs-selected span::after {
+    margin-left: 1em;
+    content: '\2713';
+}
+
+.cs-select.cs-active > span::after {
+    -webkit-transform: translateY(-50%) rotate(180deg);
+    transform: translateY(-50%) rotate(180deg);
+}
+
+div.cs-active {
+    z-index: 200;
+}
+/* Options */
+
+.cs-select .cs-options {
+    position: absolute;
+    visibility: hidden;
+    overflow: hidden;
+    width: 100%;
+    background: #fff;
+}
+
+.cs-select.cs-active .cs-options {
+    visibility: visible;
+}
+
+.cs-select ul {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .cs-select ul span {
+        padding: 1em;
+    }
+
+    .cs-select ul li.cs-focus span {
+        background-color: #ddd;
+    }
+/* Optgroup and optgroup label */
+
+.cs-select li.cs-optgroup ul {
+    padding-left: 1em;
+}
+
+.cs-select li.cs-optgroup > span {
+    cursor: default;
+}
+
+div.cs-skin-elastic {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #5b8583;
+    background: transparent;
+}
+
+@media screen and (max-width: 30em) {
+    div.cs-skin-elastic {
+        font-size: 1em;
+    }
+}
+
+.cs-skin-elastic > span {
+    z-index: 100;
+    background-color: #fff;
+}
+
+.cs-skin-elastic .cs-options {
+    visibility: visible;
+    overflow: visible;
+    padding-bottom: 1.25em;
+    pointer-events: none;
+    opacity: 1;
+    background: transparent;
+}
+
+.cs-skin-elastic.cs-active .cs-options {
+    pointer-events: auto;
+}
+
+.cs-skin-elastic .cs-options > ul::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    -webkit-transition: -webkit-transform .3s;
+    transition: transform .3s;
+    -webkit-transform: scale3d(1, 0, 1);
+    transform: scale3d(1, 0, 1);
+    -webkit-transform-origin: 50% 0;
+    transform-origin: 50% 0;
+    background: #fff;
+}
+
+.cs-skin-elastic.cs-active .cs-options > ul::before {
+    -webkit-transition: none;
+    transition: none;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    -webkit-animation: expand .6s ease-out;
+    animation: expand .6s ease-out;
+}
+
+.cs-skin-elastic .cs-options ul li {
+    -webkit-transition: opacity .15s, -webkit-transform .15s;
+    transition: opacity .15s, transform .15s;
+    -webkit-transform: translate3d(0, -25px, 0);
+    transform: translate3d(0, -25px, 0);
+    opacity: 0;
+}
+
+.cs-skin-elastic.cs-active .cs-options ul li {
+    -webkit-transition: none;
+    transition: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-animation: bounce .6s ease-out;
+    animation: bounce .6s ease-out;
+    opacity: 1;
+}
+
+.cs-skin-elastic .cs-options span {
+    background-repeat: no-repeat;
+    background-position: 1.5em 50%;
+    background-size: 2em auto;
+}
+
+    .cs-skin-elastic .cs-options span:hover,
+    .cs-skin-elastic .cs-options li.cs-focus span,
+    .cs-skin-elastic .cs-options .cs-selected span {
+        color: #1e4c4a;
+    }
+
+        .cs-skin-elastic .cs-options .cs-selected span::after {
+            content: '';
+        }
+
+@-webkit-keyframes expand {
+    0% {
+        -webkit-transform: scale3d(1, 0, 1);
+    }
+
+    25% {
+        -webkit-transform: scale3d(1, 1.2, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1, .85, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1, 1.05, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes expand {
+    0% {
+        -webkit-transform: scale3d(1, 0, 1);
+        transform: scale3d(1, 0, 1);
+    }
+
+    25% {
+        -webkit-transform: scale3d(1, 1.2, 1);
+        transform: scale3d(1, 1.2, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1, .85, 1);
+        transform: scale3d(1, .85, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1, 1.05, 1);
+        transform: scale3d(1, 1.05, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@-webkit-keyframes bounce {
+    0% {
+        -webkit-transform: translate3d(0, -25px, 0);
+        opacity: 0;
+    }
+
+    25% {
+        -webkit-transform: translate3d(0, 10px, 0);
+    }
+
+    50% {
+        -webkit-transform: translate3d(0, -6px, 0);
+    }
+
+    75% {
+        -webkit-transform: translate3d(0, 2px, 0);
+    }
+
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0% {
+        -webkit-transform: translate3d(0, -25px, 0);
+        transform: translate3d(0, -25px, 0);
+        opacity: 0;
+    }
+
+    25% {
+        -webkit-transform: translate3d(0, 10px, 0);
+        transform: translate3d(0, 10px, 0);
+    }
+
+    50% {
+        -webkit-transform: translate3d(0, -6px, 0);
+        transform: translate3d(0, -6px, 0);
+    }
+
+    75% {
+        -webkit-transform: translate3d(0, 2px, 0);
+        transform: translate3d(0, 2px, 0);
+    }
+
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+
+/*radio form lambda*/
+
+group + group {
+    margin-top: 20px;
+}
+
+.inline-radio {
+    display: flex;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid #b6b6b6;
+}
+
+    .inline-radio div {
+        position: relative;
+        flex: 1;
+    }
+
+    .inline-radio input {
+        width: 100%;
+        height: 60px;
+        opacity: 0;
+    }
+
+    .inline-radio label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #b6b6b6;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        border-right: 1px solid #b6b6b6;
+    }
+
+    .inline-radio div:last-child label {
+        border-right: 0;
+    }
+
+    .inline-radio input:checked + label {
+        background: #19332e;
+        font-weight: 500;
+        color: #fff;
+    }
+
+
+/*input textbox*/
+
+.nice-wrap {
+    position: relative;
+    width: 500px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.nice-label {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    font-size: 16px;
+    color: #a0a0a0;
+    transition: all 0.25s ease;
+}
+
+    .nice-label.focus {
+        top: -25px;
+        left: 5px;
+        font-size: 14px;
+        color: #fff;
+    }
+
+.nice-textbox {
+    position: relative;
+    display: block;
+    width: 500px;
+    margin-top: 50px;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #a0a0a0;
+    outline: none;
+}
+
+
+/*button submit*/
+
+.button {
+    position: relative;
+    width: 200px;
+    height:100px;
+    background: #00BCD4;
+    border-radius: 8px;
+    text-align: center;
+    margin: 0px auto 0 auto;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.submit,
+.arrow {
+    display: inline-block;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.submit {
+    text-transform: uppercase;
+    margin: 14px 0 0 26px;
+}
+
+.arrow {
+    position: relative;
+    top: -3px;
+    opacity: 0;
+}
+
+.line {
+    height: 3px;
+    width: 20px;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.top {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.bottom {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    margin-top: 10px;
+}
+
+.instructions {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.button:active {
+    -webkit-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    transform: scale(1.3);
+}
+
+.button.hover .submit {
+    -webkit-transform: translateX(-90px);
+    -moz-transform: translateX(-90px);
+    transform: translateX(-90px);
+    opacity: 0;
+}
+
+.button.hover .arrow {
+    -webkit-transform: translateX(-70px);
+    -moz-transform: translateX(-70px);
+    transform: translateX(-70px);
+    opacity: 1;
+}
+
+.button.active .arrow {
+    opacity: 1;
+    -webkit-transform: rotate(90deg) translateY(70px);
+    -moz-transform: rotate(90deg) translateY(70px);
+    transform: rotate(90deg) translateY(70px);
+}
+
+.button.active {
+    background: #4CAF50;
+}
+
+    .button.active .submit {
+        opacity: 0;
+    }
+
+    .button.active .top {
+        width: 34px;
+    }
+
+    .button.active .bottom {
+        margin: 14px 0 0 12px;
+    }
+
+
+    /*popup*/
+.popup {
+    background: rgba(100, 100, 100, 0.5);
+    position: fixed;
+    display: none;
+    z-index: 5000;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+    .popup > div {
+        /*max-width: 600px;*/
+        max-height: 600px;
+        width: 90%;
+        position: fixed;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+        background: #FFFFFF;
+        padding: 30px;
+        z-index: 5001;
+        text-align: center;
+        border: 5px solid #9AD3DE;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.4);
+    }
+
+
+/*app styles*/
+
+.hidden {
+    display: none;
+}
+
+/*lamda budget d3*/
+
+svg {
+    font: 10px sans-serif;
+    shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+}
+
+path.domain {
+    stroke: none;
+}
+
+.y .tick line {
+    stroke: #ddd;
+}
